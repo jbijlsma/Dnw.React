@@ -1,1 +1,1 @@
-az webapp up --sku B1 --location westeurope --name dnwreact2 --os-type linux  --resource-group dnw-rg  --plan dnw-plan
+az webapp up --sku B1 --location westeurope --name dnwreact --os-type linux  --resource-group dnw-rg  --plan dnw-plan
