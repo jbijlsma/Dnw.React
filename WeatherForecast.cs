@@ -1,4 +1,4 @@
-namespace react;
+namespace Dnw.React;
 
 public class WeatherForecast
 {
