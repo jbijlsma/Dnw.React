@@ -14,11 +14,11 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-// app.UseStaticFiles();
-app.UseSpa(config =>
-{
-    config.Options.SourcePath = "ClientApp/build";
-});
+app.UseStaticFiles();
+// app.UseSpa(config =>
+// {
+//     config.Options.SourcePath = "wwwroot";
+// });
 app.UseRouting();
 
 
