@@ -4,7 +4,6 @@ RUN apk add --update npm
 WORKDIR /source
 
 # copy csproj and restore as distinct layers
-COPY *.sln .
 COPY *.csproj .
 RUN dotnet restore -r linux-musl-arm64
 
