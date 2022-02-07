@@ -1,0 +1,42 @@
+# FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine
+# FROM mcr.microsoft.com/dotnet/sdk:6.0
+FROM alpine:latest
+
+WORKDIR /app
+
+RUN apk add bash icu-libs krb5-libs libgcc libintl libssl1.1 libstdc++ zlib
+RUN apk add libgdiplus --repository https://dl-3.alpinelinux.org/alpine/edge/testing/
+
+RUN apk add curl
+
+RUN apk add nodejs npm
+
+RUN curl -L https://dot.net/v1/dotnet-install.sh | bash
+
+ENV PATH="$PATH:/root/.dotnet"
+
+# RUN apt-get update
+# RUN apt-get install -y curl
+# RUN apt-get install -y libpng-dev libjpeg-dev curl libxi6 build-essential libgl1-mesa-glx
+# RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash -
+# RUN apt-get install -y nodejs
+
+# RUN curl https://raw.githubusercontent.com/BorisWilhelms/create-dotnet-devcert/main/scripts/common.sh -o common.sh
+# RUN curl https://raw.githubusercontent.com/BorisWilhelms/create-dotnet-devcert/main/scripts/ubuntu-create-dotnet-devcert.sh | sh;
+
+# WORKDIR /source
+COPY ./ClientApp/package.json ./ClientApp/package.json
+WORKDIR /app/ClientApp
+RUN npm install
+
+WORKDIR /app
+COPY *.csproj .
+RUN dotnet restore
+
+COPY . .
+
+#ENV ASPNETCORE_URLS=http://+:5050
+
+# docker run --rm -it -p 8000:80 -p 8001:443 -e ASPNETCORE_URLS="https://+;http://+" -e ASPNETCORE_HTTPS_PORT=8001 -e ASPNETCORE_ENVIRONMENT=Development -v ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets -v ${HOME}/.aspnet/https:/root/.aspnet/https/ aspnetapp
+
+ENTRYPOINT ["dotnet", "run", "--no-restore"]

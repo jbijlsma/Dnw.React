@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+  sdk:
+    # stdin_open: true # docker run -i
+    # tty: true        # docker run -t
+    #image: mcr.microsoft.com/dotnet/sdk:6.0-alpine
+    build:
+      dockerfile: Dockerfile.dev
+      context: .
+    volumes:
+      - .:/src
