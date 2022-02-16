@@ -1,0 +1,7 @@
+helm template '.' --output-dir '.yamls'
+
+helm upgrade dnw-react . --dry-run --debug --install
+
+helm upgrade dnw-react . --install
+
+helm delete dnw-react
